@@ -1,0 +1,44 @@
+<link rel="import" href="http://www.polymer-project.org/1.0/samples/components/polymer/polymer.html">
+
+<dom-module id="action-bar-title">
+    <style>
+        :host {
+            width: 50%;
+            height: 100%;
+            display: block;
+            text-align: center;
+            line-height: 44px;
+            font-size: 1.5em;
+            color: white;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    </style>
+    <template>
+        <span>{{title}}</span>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "action-bar-title",
+        properties: {
+            title: {
+                type: String,
+                default: "Home"
+            }
+        },
+        ready: function() {
+            window.$actionBarTitle = {};
+
+            var self = this;
+            window.$actionBarTitle.setTitle = function(t) {
+                self.title = t;
+            }
+
+            this.onclick = function() {
+                window.$contentView.scrollTop();
+            };
+        }
+    });
+</script>

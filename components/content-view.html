@@ -1,0 +1,126 @@
+<link rel="import" href="http://www.polymer-project.org/1.0/samples/components/polymer/polymer.html">
+
+<dom-module id="content-view">
+    <style>
+        :host {
+            display: flex;
+            flex: 1;
+            position: absolute;
+            top: 44px;
+            z-index: 0;
+            padding: 10px;
+            width: 100%;
+        }
+
+        :host.leave-forward {
+            animation: leaveForward 0.5s normal forwards;
+        }
+
+        :host.leave-back {
+            animation: leaveBack 0.5s normal forwards;
+        }
+
+        :host.enter-forward {
+            animation: enterForward 0.5s normal forwards;
+        }
+
+        :host.enter-back {
+            animation: enterBack 0.5s normal forwards;
+        }
+
+        @keyframes enterBack {
+            from {
+                transform: translateX(-100%);
+            },
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes enterForward {
+            from {
+                transform: translateX(100%);
+            },
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes leaveForward {
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes leaveBack {
+            to {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+    <template>
+        <content></content>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "content-view",
+        ready: function() {
+            var self = this;
+
+            var previousViews = [];
+
+            window.$contentView = {};
+            window.$contentView.scrollTop = function() {
+                window.scrollTo(0, 0);
+            };
+
+            function leaverForward() {
+                self.className = 'leave-forward';
+            };
+
+            function leaveBack() {
+                self.className = 'leave-back';
+            };
+
+            function enterForward() {
+                self.className = 'enterForward';
+            };
+
+            function enterBack() {
+                self.className = 'enterBack';
+            }
+
+            window.$contentView.init = function() {
+                Array.prototype.forEach.call(document.querySelectorAll("content-view a"), function(a) {
+                    a.onclick = function(e) {
+                        var nextGoTo = a.getAttribute('load');
+                        if(previousViews.length === 0) {
+                            previousViews.push(nextGoTo);
+
+                            leaverForward();
+                            setTimeout(function() {
+                                self.innerHTML = document.createElement(nextGoTo).outerHTML;
+                                enterForward();
+                            }, 500);
+                        }
+                        else {
+                            if(nextGoTo === previousViews[previousViews.length - 1]) {
+                                previousViews.pop();
+                                leaveBack();
+                                setTimeout(function() {
+                                    self.innerHTML = document.createElement(nextGoTo).outerHTML;
+                                    enterBack();
+                                }, 500);
+                            }
+                        }
+
+
+                        return false;
+                    }
+                });
+            }
+        }
+    });
+</script>

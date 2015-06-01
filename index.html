@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <script src="http://www.polymer-project.org/1.0/samples/components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <link rel="import" href="/components/action-bar.html">
+    <link rel="import" href="/components/action-bar-title.html">
+    <link rel="import" href="/components/back-button.html">
+    <link rel="import" href="/components/content-view.html">
+    <link rel="import" href="/components/view.html">
+
+    <link rel="import" href="/views/main_view.html">
+    <link rel="import" href="/views/second_view.html">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        body {
+            font-family: Helvetica;
+        }
+    </style>
+</head>
+
+<body>
+    <view-container>
+        <action-bar>
+            <back-button></back-button>
+            <action-bar-title></action-bar-title>
+        </action-bar>
+        <content-view>
+            <main-view></main-view>
+        </content-view>
+    </view-container>
+</body>
+
+</html>
