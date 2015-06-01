@@ -76,7 +76,7 @@
                 window.scrollTo(0, 0);
             };
 
-            function leaverForward() {
+            function leaveForward() {
                 self.className = 'leave-forward';
             };
 
@@ -85,11 +85,11 @@
             };
 
             function enterForward() {
-                self.className = 'enterForward';
+                self.className = 'enter-forward';
             };
 
             function enterBack() {
-                self.className = 'enterBack';
+                self.className = 'enter-back';
             }
 
             window.$contentView.init = function() {
@@ -99,7 +99,7 @@
                         if(previousViews.length === 0) {
                             previousViews.push(nextGoTo);
 
-                            leaverForward();
+                            leaveForward();
                             setTimeout(function() {
                                 self.innerHTML = document.createElement(nextGoTo).outerHTML;
                                 enterForward();
