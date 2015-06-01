@@ -69,7 +69,7 @@
         ready: function() {
             var self = this;
 
-            var previousViews = [];
+            var previousViews = ['main-view'];
 
             window.$contentView = {};
             window.$contentView.scrollTop = function() {
@@ -96,7 +96,15 @@
                 Array.prototype.forEach.call(document.querySelectorAll("content-view a"), function(a) {
                     a.onclick = function(e) {
                         var nextGoTo = a.getAttribute('load');
-                        if(previousViews.length === 0) {
+                        if(previousViews.length >= 2 && nextGoTo === previousViews[previousViews.length - 2]) {
+                            previousViews.pop();
+                            leaveBack();
+                            setTimeout(function() {
+                                self.innerHTML = document.createElement(nextGoTo).outerHTML;
+                                enterBack();
+                            }, 500);
+                        }
+                        else {
                             previousViews.push(nextGoTo);
 
                             leaveForward();
@@ -105,17 +113,6 @@
                                 enterForward();
                             }, 500);
                         }
-                        else {
-                            if(nextGoTo === previousViews[previousViews.length - 1]) {
-                                previousViews.pop();
-                                leaveBack();
-                                setTimeout(function() {
-                                    self.innerHTML = document.createElement(nextGoTo).outerHTML;
-                                    enterBack();
-                                }, 500);
-                            }
-                        }
-
 
                         return false;
                     }
